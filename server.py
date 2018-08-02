@@ -5,7 +5,6 @@ import pandas as pd
 import numpy as np
 import datetime
 from dateutil.parser import parse
-import os
 
 app = Flask(__name__)
  
@@ -76,5 +75,4 @@ def hello():
     return render_template("index.html", df=df.to_html(), pivot=pivot.to_html(), index=index, column=column)
  
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0')
