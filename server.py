@@ -30,6 +30,7 @@ def get_df():
     for country in countries:
         for type in countries[country]:
             d = {}
+            d['time'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             d['country'] = country
             d['type'] = type
             d['color'] = 'Silvers' if type[0:5] in Silvers else 'Gray'
@@ -49,6 +50,8 @@ df = {'data': pd.DataFrame(), 'time': None}
 @app.route("/update")
 def update():
     global df
+    with open('my_csv.csv', 'a') as f:
+        get_df().to_csv(f, header=False)
     df['data'] = json.loads(get_df().to_json())
     df['time'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return jsonify(df)
@@ -66,9 +69,10 @@ def hello():
     column = request.values.get('column', 'size')
      
     # df = get_df()
-    global df
+    df = pd.read_csv('my_csv.csv')
+    print(df)
     pivot = pd.pivot_table(df, values='quote', index=[index],
-        columns=[column], aggfunc=np.sum)
+        columns=[column], aggfunc=np.size)
  
     if country:
         return render_template("index.html", df=df[df['country']==country].to_html(), pivot=pivot.to_html(), index=index, column=column)
