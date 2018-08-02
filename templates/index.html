@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+      <h1>test html</h1>
+      <a href="/">所有</a>
+      <a href="/?country=tw">tw</a>
+      <a href="/?country=cn">cn</a>
+      {{df|safe}}
+      <br/>
+      <form action="/">
+        index: 
+        <select name="index">
+          <option value="color">color </option>
+          <option value="country">country</option>
+          <option value="size">size</option>
+          <option value="type">type</option>
+        </select>
+        column:
+        <select name="column">
+          <option value="color">color </option>
+          <option value="country">country</option>
+          <option value="size">size</option>
+          <option value="type">type</option>
+        </select>
+        <input type="submit">
+      </form>
+      <br/>
+      {{pivot|safe}}
+  </body>
+</html>
